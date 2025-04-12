@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Goes to the Castle</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to top, #ffe4f2 60%, #a2d2ff);
+      height: 100vh;
+      position: relative;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    /* Car */
+    .barbie {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      width: 180px;
+      height: 180px;
+      background: url('BarbieCar.png') no-repeat center/contain;
+    }
+
+    /* Castle */
+    .castle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 450px;
+      height: 400px;
+      background: url('CuteCastle.png') no-repeat center/contain;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 10px pink); }
+      100% { filter: drop-shadow(0 0 20px gold); }
+    }
+
+    /* Clouds */
+    .cloud {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: url('CuteCloud.png') no-repeat center/contain;
+      animation: floatClouds 50s linear infinite;
+      opacity: 0.7;
+    }
+
+    .cloud:nth-child(1) { left: -150px; top: 40px; animation-delay: 0s; }
+    .cloud:nth-child(2) { left: -250px; top: 80px; animation-delay: 5s; }
+    .cloud:nth-child(3) { left: -350px; top: 60px; animation-delay: 10s; }
+    .cloud:nth-child(4) { left: -450px; top: 100px; animation-delay: 15s; }
+
+    @keyframes floatClouds {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(120vw); }
+    }
+
+    /* Button */
+    .button {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 25px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .button:hover {
+      background-color: #f451a3;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="button" onclick="startWalking()">Let the Car Go to the Castle 🚗</button>
+
+  <!-- Clouds -->
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+
+  <!-- Car and Castle -->
+  <div class="barbie" id="barbie"></div>
+  <div class="castle"></div>
+
+  <script>
+    const barbie = document.getElementById("barbie");
+    let position = 0;
+    let walking = false;
+
+    function startWalking() {
+      if (walking) return;
+      walking = true;
+
+      const walkInterval = setInterval(() => {
+        if (position >= window.innerWidth - 300) {
+          clearInterval(walkInterval);
+          document.querySelector(".button").innerText = "The car reached the castle! 🏰✨";
+          return;
+        }
+        position += 3;
+        barbie.style.left = position + "px";
+      }, 16);
+    }
+  </script>
+</body>
+</html>
